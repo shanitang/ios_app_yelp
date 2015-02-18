@@ -26,6 +26,8 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var is_searching: Bool!
     
+    var deal: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +38,7 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
         
-        client.searchWithTerm("Thai", success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        client.searchWithTerm("Resturant", success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             self.businessesDictionary = response["businesses"] as [NSDictionary]
             self.businessTable.reloadData()
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
@@ -49,6 +51,10 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         is_searching = false
         search.placeholder = "Search"
         navigationItem.titleView = search
+        
+        if deal == true{
+            searchForDeal()
+        }
 
     }
 
@@ -78,8 +84,10 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         cell.businessesWithDictoinaries(business)
         
+        
         return cell
     }
+    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text.isEmpty{
             is_searching = false
@@ -104,6 +112,22 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
 
     }
+    
+    func searchForDeal() {
+       
+        filteredBusinesses.removeAll(keepCapacity: false)
+        is_searching = true
+        for (idx, businessesDictionary) in enumerate(self.businessesDictionary){
+            var d = businessesDictionary["deals"] as [String]
+            if d.count > 0 {
+                filteredBusinesses.append(businessesDictionary)
+            }
+        }
+        businessTable.reloadData()
+    }
+
+    
+
       /*
     // MARK: - Navigation
 

@@ -10,36 +10,49 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
-    @IBOutlet var sort1: UITableViewCell!
-    @IBOutlet var sort2: UITableViewCell!
-    @IBOutlet var sort3: UITableViewCell!
-    @IBOutlet var sort4: UITableViewCell!
+    @IBOutlet var sort1: SettingsViewCell!
+    @IBOutlet var sort2: SettingsViewCell!
+    @IBOutlet var sort3: SettingsViewCell!
+    @IBOutlet var sort4: SettingsViewCell!
     
-    @IBOutlet var distance1: UITableViewCell!
-    @IBOutlet var distance2: UITableViewCell!
-    @IBOutlet var distance3: UITableViewCell!
-    @IBOutlet var distance4: UITableViewCell!
+    @IBOutlet var distance1: SettingsViewCell!
+    @IBOutlet var distance2: SettingsViewCell!
+    @IBOutlet var distance3: SettingsViewCell!
+    @IBOutlet var distance4: SettingsViewCell!
     
     @IBOutlet var dealTable: UITableViewCell!
     @IBOutlet var applyButton: UIBarButtonItem!
     @IBOutlet var cancelButton: UIBarButtonItem!
+    
+    @IBOutlet var dealSwitch: UISwitch!
+    var changed: Bool!
+    
+    var showList: Bool!
     
     var rowsInSection: [Int] = [1,4,4]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        applyButton.title = "Apply"
-        applyButton.target = self
-        applyButton.action = "onApplyButton:"
+        applyButton.title = "Search"
         
         cancelButton.target = self
         cancelButton.action = "onCancelButton:"
+        
+        dealSwitch.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        
+        changed = false
+        showList = false
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println(indexPath.section)
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,12 +74,12 @@ class SettingsViewController: UITableViewController {
         return rowsInSection[section]
     }
     
-    func onApplyButton(sender: UIBarButtonItem){
-        println("########apply#########")
-    }
-    
     func onCancelButton(sender: UIBarButtonItem){
         self.dismissViewControllerAnimated(false, completion: nil)
+    }
+    
+    func stateChanged(sender: UISwitch){
+        println(self.dealSwitch.on)
     }
     
     /*
@@ -114,13 +127,17 @@ class SettingsViewController: UITableViewController {
     }
     */
     
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+            var vc = segue.destinationViewController as YelpViewController
+            vc.deal = self.dealSwitch.on
+        
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     }
-    */
+    
 }

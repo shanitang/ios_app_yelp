@@ -32,7 +32,7 @@ class BusinessViewCell: UITableViewCell {
     }
     
     func businessesWithDictoinaries(businessDictionary: NSDictionary){
-        
+        println(businessDictionary)
         var imageUrl = businessDictionary["image_url"] as String
         var name = businessDictionary["name"] as NSString
         var ratingImagerUrl = businessDictionary["rating_img_url"] as String
@@ -49,7 +49,8 @@ class BusinessViewCell: UITableViewCell {
         var s = CLLocation.init(latitude: l["latitude"] as Double,longitude: l["longitude"] as Double)
 
         var distance = o.distanceFromLocation(s) * 0.000621371
-        
+
+        ////// Outlets setting
         self.photo.setImageWithURL(NSURL(string: imageUrl))
         self.businessName.text = name
         self.rating.setImageWithURL(NSURL(string: ratingImagerUrl))

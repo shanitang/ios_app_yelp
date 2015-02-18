@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yelp/BusinessViewCell.swift"
-            timestampString = "445929703.121075"
+            timestampString = "445932435.882252"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "businessesWithDictoinaries(_:)"
             landmarkType = "5">
          </BreakpointContent>
