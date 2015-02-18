@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class YelpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate{
 
@@ -27,6 +28,8 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     var is_searching: Bool!
     
     var deal: Bool = false
+    var sort_by: Int = 0
+    var distance_match: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +43,22 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         client.searchWithTerm("Resturant", success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             self.businessesDictionary = response["businesses"] as [NSDictionary]
+            
+            
+            if self.deal == true {
+                self.searchForDeal()
+            }
+            
+            if self.sort_by != 0 {
+                self.sortby()
+            }
+            
+            if self.distance_match != 0 {
+                self.distanceMatch()
+            }
+            
             self.businessTable.reloadData()
+
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println(error)
         }
@@ -52,10 +70,7 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         search.placeholder = "Search"
         navigationItem.titleView = search
         
-        if deal == true{
-            searchForDeal()
-        }
-
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,14 +133,81 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         filteredBusinesses.removeAll(keepCapacity: false)
         is_searching = true
         for (idx, businessesDictionary) in enumerate(self.businessesDictionary){
-            var d = businessesDictionary["deals"] as [String]
-            if d.count > 0 {
+            var d = businessesDictionary["deals"] as? [String]
+            if d?.count > 0 {
                 filteredBusinesses.append(businessesDictionary)
             }
         }
         businessTable.reloadData()
     }
+    
+    func sortby(){
+        
+        filteredBusinesses.removeAll(keepCapacity: false)
+        is_searching = true
+        
+        if sort_by == 1{
+            self.filteredBusinesses = self.businessesDictionary.sorted({ (dic1, dic2) -> Bool in
+                return self.calDistance(dic1) < self.calDistance(dic2)
+            })
+            
+        }else if sort_by == 2{
+            self.filteredBusinesses = self.businessesDictionary.sorted({ (dic1, dic2) -> Bool in
+                return dic1["rating"] as Double > dic2["rating"] as Double
+            })
+            
+        }else if sort_by == 3{
+            self.filteredBusinesses = self.businessesDictionary.sorted({ (dic1, dic2) -> Bool in
+                return dic1["review_count"] as Double > dic2["review_count"] as Double
+            })
+        }
+    }
+    
+    func distanceMatch(){
+        
+        filteredBusinesses.removeAll(keepCapacity: false)
+        is_searching = true
+        
+        if distance_match == 1{
+            
+            for(i , dis) in enumerate(self.businessesDictionary){
+                var currentDis = self.calDistance(dis)
+                if currentDis <= 1 {
+                    filteredBusinesses.append(dis)
+                }
+            }
+            
+        }else if distance_match == 2{
+            
+            for(i , dis) in enumerate(self.businessesDictionary){
+                var currentDis = self.calDistance(dis)
+                if currentDis <= 2 {
+                    filteredBusinesses.append(dis)
+                }
+            }
+            
+        }else if distance_match == 3{
+            for(i , dis) in enumerate(self.businessesDictionary){
+                var currentDis = self.calDistance(dis)
+                if currentDis <= 3 {
+                    filteredBusinesses.append(dis)
+                }
+            }
+        }
+    }
 
+    
+    func calDistance(business: NSDictionary)-> Double{
+        
+        var location = business["location"] as NSDictionary
+        var o = CLLocation.init(latitude: 37.782193,longitude: -122.410254)
+
+        var l = location["coordinate"] as NSDictionary
+        var s = CLLocation.init(latitude: l["latitude"] as Double,longitude: l["longitude"] as Double)
+        
+        var distance = o.distanceFromLocation(s) * 0.000621371
+        return distance
+    }
     
 
       /*

@@ -32,7 +32,7 @@ class BusinessViewCell: UITableViewCell {
     }
     
     func businessesWithDictoinaries(businessDictionary: NSDictionary){
-        println(businessDictionary)
+
         var imageUrl = businessDictionary["image_url"] as String
         var name = businessDictionary["name"] as NSString
         var ratingImagerUrl = businessDictionary["rating_img_url"] as String

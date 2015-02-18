@@ -27,7 +27,8 @@ class SettingsViewController: UITableViewController {
     @IBOutlet var dealSwitch: UISwitch!
     var changed: Bool!
     
-    var showList: Bool!
+    var sort: Int!
+    var distance: Int!
     
     var rowsInSection: [Int] = [1,4,4]
 
@@ -42,7 +43,8 @@ class SettingsViewController: UITableViewController {
         dealSwitch.addTarget(self, action: Selector("stateChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         
         changed = false
-        showList = false
+        sort = 0
+        distance = 0
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -52,7 +54,13 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println(indexPath.section)
+        if indexPath.section == 1{
+            self.sort = indexPath.row
+            
+        }else if indexPath.section == 2{
+            self.distance = indexPath.row
+        
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -135,6 +143,8 @@ class SettingsViewController: UITableViewController {
 
             var vc = segue.destinationViewController as YelpViewController
             vc.deal = self.dealSwitch.on
+            vc.sort_by = self.sort
+            vc.distance_match = self.distance
         
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.

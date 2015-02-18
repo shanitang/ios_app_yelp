@@ -19,5 +19,51 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Yelp/YelpViewController.swift"
+            timestampString = "445942031.342563"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "sortby()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Yelp.YelpViewController.(sortby (Yelp.YelpViewController) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "Yelp"
+                  urlString = "file:///Users/ytang/Documents/Yelp/Yelp/YelpViewController.swift"
+                  timestampString = "445939963.755252"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "reabstraction thunk helper from @callee_owned (@owned ObjectiveC.NSDictionary, @owned ObjectiveC.NSDictionary) -&gt; (@unowned Swift.Bool) to @callee_owned (@in ObjectiveC.NSDictionary, @in ObjectiveC.NSDictionary) -&gt; (@unowned Swift.Bool)"
+                  moduleName = "Yelp"
+                  urlString = "file:///Users/ytang/Documents/Yelp/Yelp/YelpViewController.swift"
+                  timestampString = "445939963.755823"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
