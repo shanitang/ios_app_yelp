@@ -227,14 +227,18 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
-      /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        var vc = segue.destinationViewController as SettingsViewController
+        vc.delegate = self
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
+    
 
 }

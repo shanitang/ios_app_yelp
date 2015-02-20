@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yelp/YelpViewController.swift"
-            timestampString = "446104380.375675"
+            timestampString = "446109899.381633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "sortby()"
             landmarkType = "5">
             <Locations>
@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yelp/YelpViewController.swift"
-            timestampString = "446108239.298977"
+            timestampString = "446109899.381633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "distanceChange(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yelp/YelpViewController.swift"
-            timestampString = "446108239.298977"
+            timestampString = "446109899.381633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "sortByChange(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yelp/YelpViewController.swift"
-            timestampString = "446108239.298977"
+            timestampString = "446109899.381633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "distanceChange(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Yelp/YelpViewController.swift"
-            timestampString = "446105283.516151"
+            timestampString = "446109899.381633"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "dealSwitchChange(_:)"
             landmarkType = "5">
          </BreakpointContent>
