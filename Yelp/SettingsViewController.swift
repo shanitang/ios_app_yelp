@@ -8,7 +8,16 @@
 
 import UIKit
 
+protocol FilterDelegate: class {
+    func dealSwitchChange(on: Bool)
+    func sortByChange(sort: Int)
+    func distanceChange(distance: Int)
+    func search()
+}
+
 class SettingsViewController: UITableViewController {
+    
+    weak var delegate: FilterDelegate?
 
     @IBOutlet var sort1: SettingsViewCell!
     @IBOutlet var sort2: SettingsViewCell!
@@ -25,8 +34,8 @@ class SettingsViewController: UITableViewController {
     @IBOutlet var cancelButton: UIBarButtonItem!
     
     @IBOutlet var dealSwitch: UISwitch!
-    var changed: Bool!
     
+    var changed: Bool!
     var sort: Int!
     var distance: Int!
     
@@ -36,6 +45,9 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
         
         applyButton.title = "Search"
+        applyButton.target = self
+        applyButton.action = "onSearchButton:"
+        
         
         cancelButton.target = self
         cancelButton.action = "onCancelButton:"
@@ -46,6 +58,8 @@ class SettingsViewController: UITableViewController {
         sort = 0
         distance = 0
         
+        dealSwitch.on =  NSUserDefaults.standardUserDefaults().boolForKey("switchState")
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -55,10 +69,12 @@ class SettingsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1{
-            self.sort = indexPath.row
+            delegate?.distanceChange(indexPath.row)
+//            self.sort = indexPath.row
             
         }else if indexPath.section == 2{
-            self.distance = indexPath.row
+            delegate?.sortByChange(indexPath.row)
+//            self.distance = indexPath.row
         
         }
     }
@@ -82,12 +98,18 @@ class SettingsViewController: UITableViewController {
         return rowsInSection[section]
     }
     
+    func onSearchButton(sender: UIBarButtonItem){
+        delegate?.search();
+        self.dismissViewControllerAnimated(false, completion: nil)
+    }
+    
     func onCancelButton(sender: UIBarButtonItem){
         self.dismissViewControllerAnimated(false, completion: nil)
     }
     
     func stateChanged(sender: UISwitch){
-        println(self.dealSwitch.on)
+        NSUserDefaults.standardUserDefaults().setBool(dealSwitch.on, forKey: "switchState")
+        delegate?.dealSwitchChange(self.dealSwitch.on)
     }
     
     /*
@@ -135,19 +157,19 @@ class SettingsViewController: UITableViewController {
     }
     */
     
-    
+    /*
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-            var vc = segue.destinationViewController as YelpViewController
-            vc.deal = self.dealSwitch.on
-            vc.sort_by = self.sort
-            vc.distance_match = self.distance
+//            var vc = segue.destinationViewController as YelpViewController
+//            vc.deal = self.dealSwitch.on
+//            vc.sort_by = self.sort
+//            vc.distance_match = self.distance
         
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    }
+    }*/
     
 }

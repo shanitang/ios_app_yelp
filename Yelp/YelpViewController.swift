@@ -9,10 +9,10 @@
 import UIKit
 import CoreLocation
 
-class YelpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate{
+class YelpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, FilterDelegate {
 
     @IBOutlet weak var businessTable: UITableView!
-    lazy var search: UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 200, 20))
+    lazy var searchBar: UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 200, 20))
     @IBOutlet weak var filterButton: UIButton!
     
     var client: YelpClient!
@@ -31,44 +31,32 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     var sort_by: Int = 0
     var distance_match: Int = 0
     
+    var params: NSMutableDictionary?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         businessTable.dataSource = self
         businessTable.delegate = self
         
-        search.delegate = self
+        searchBar.delegate = self
         
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
         
-        client.searchWithTerm("Resturant", success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            self.businessesDictionary = response["businesses"] as [NSDictionary]
-            
-            
-            if self.deal == true {
-                self.searchForDeal()
-            }
-            
-            if self.sort_by != 0 {
-                self.sortby()
-            }
-            
-            if self.distance_match != 0 {
-                self.distanceMatch()
-            }
-            
-            self.businessTable.reloadData()
-
-            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println(error)
-        }
+        params = [
+            "term": "Resturant",
+            "location": "San Francisco"
+        ]
+        
+        search()
+        
         businessTable.rowHeight = UITableViewAutomaticDimension
         ///???
         businessTable.estimatedRowHeight = 50
     
         is_searching = false
-        search.placeholder = "Search"
-        navigationItem.titleView = search
+        searchBar.placeholder = "Search"
+        navigationItem.titleView = searchBar
         
        
     }
@@ -207,6 +195,35 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         var distance = o.distanceFromLocation(s) * 0.000621371
         return distance
+    }
+    
+    
+    func dealSwitchChange(on: Bool){
+        params?["deals_filter"] = on
+
+    }
+    
+    func sortByChange(sort: Int){
+        params?["sort"] = sort
+    }
+    
+    func distanceChange(distance: Int){
+        params?["radius_filter"] = distance
+    }
+    
+    func search(){
+        
+        client.searchWithTerm(params!, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        self.businessesDictionary = response["businesses"] as [NSDictionary]
+        self.businessTable.reloadData()
+            
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println(error)
+        }
+    }
+    override func viewDidAppear(animated: Bool) {
+        println(params?["sort"])
+        search()
     }
     
 
