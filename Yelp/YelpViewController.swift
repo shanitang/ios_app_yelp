@@ -195,7 +195,7 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func distanceChange(distance: Int){
-        params?["radius_filter"] = 1000
+        params?["radius_filter"] = distance * 1609
     }
     
     func search(){
@@ -212,9 +212,9 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
                 println(error)
         }
     }
-    override func viewDidAppear(animated: Bool) {
-        search()
-    }
+//    override func viewDidAppear(animated: Bool) {
+//        search()
+//    }
     
 
     
