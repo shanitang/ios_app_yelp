@@ -48,7 +48,7 @@ class BusinessViewCell: UITableViewCell {
         var l = location["coordinate"] as NSDictionary
         var s = CLLocation.init(latitude: l["latitude"] as Double,longitude: l["longitude"] as Double)
 
-        var distance = o.distanceFromLocation(s) * 0.000621371
+        var distance = o.distanceFromLocation(s!) * 0.000621371
 
         ////// Outlets setting
         self.photo.setImageWithURL(NSURL(string: imageUrl))

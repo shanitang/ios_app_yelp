@@ -312,12 +312,11 @@
                         <outlet property="sort2" destination="yfR-cE-gjm" id="RcY-3T-Z7E"/>
                         <outlet property="sort3" destination="Wbs-ui-jvA" id="PF6-nD-AWG"/>
                         <outlet property="sort4" destination="1P4-8G-bJZ" id="MGG-EO-HV5"/>
-                        <outlet property="tableView" destination="nk1-Eb-iMH" id="jg0-0n-gqj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b83-hy-dP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2043" y="226"/>
+            <point key="canvasLocation" x="1953" y="228"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ULQ-LH-A1h">
@@ -353,7 +352,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PUU-sg-sJI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1511" y="228"/>
+            <point key="canvasLocation" x="1521" y="228"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

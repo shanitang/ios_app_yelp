@@ -69,11 +69,11 @@ class SettingsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1{
-            delegate?.distanceChange(indexPath.row)
+            delegate?.sortByChange(indexPath.row)
 //            self.sort = indexPath.row
             
         }else if indexPath.section == 2{
-            delegate?.sortByChange(indexPath.row)
+            delegate?.distanceChange(indexPath.row)
 //            self.distance = indexPath.row
         
         }

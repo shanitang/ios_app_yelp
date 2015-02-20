@@ -115,20 +115,7 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
 
     }
-    
-    func searchForDeal() {
-       
-        filteredBusinesses.removeAll(keepCapacity: false)
-        is_searching = true
-        for (idx, businessesDictionary) in enumerate(self.businessesDictionary){
-            var d = businessesDictionary["deals"] as? [String]
-            if d?.count > 0 {
-                filteredBusinesses.append(businessesDictionary)
-            }
-        }
-        businessTable.reloadData()
-    }
-    
+
     func sortby(){
         
         filteredBusinesses.removeAll(keepCapacity: false)
@@ -204,25 +191,28 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func sortByChange(sort: Int){
-        params?["sort"] = sort
+        self.sort_by = sort
     }
     
     func distanceChange(distance: Int){
-        params?["radius_filter"] = distance
+        params?["radius_filter"] = 1000
     }
     
     func search(){
         
         client.searchWithTerm(params!, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-        self.businessesDictionary = response["businesses"] as [NSDictionary]
-        self.businessTable.reloadData()
+            self.businessesDictionary = response["businesses"] as [NSDictionary]
+            if self.sort_by != 0{
+                self.sortby()
+            }
+            self.businessTable.reloadData()
             
+        
             }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println(error)
         }
     }
     override func viewDidAppear(animated: Bool) {
-        println(params?["sort"])
         search()
     }
     
@@ -232,8 +222,10 @@ class YelpViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+        var navController = segue.destinationViewController as UINavigationController
+        var vc = navController.viewControllers[0] as SettingsViewController
         
-        var vc = segue.destinationViewController as SettingsViewController
         vc.delegate = self
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
