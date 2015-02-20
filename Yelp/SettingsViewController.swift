@@ -99,6 +99,7 @@ class SettingsViewController: UITableViewController {
     }
     
     func onSearchButton(sender: UIBarButtonItem){
+        NSUserDefaults.standardUserDefaults().setBool(dealSwitch.on, forKey: "switchState")
         delegate?.search();
         self.dismissViewControllerAnimated(false, completion: nil)
     }
@@ -108,7 +109,6 @@ class SettingsViewController: UITableViewController {
     }
     
     func stateChanged(sender: UISwitch){
-        NSUserDefaults.standardUserDefaults().setBool(dealSwitch.on, forKey: "switchState")
         delegate?.dealSwitchChange(self.dealSwitch.on)
     }
     
